@@ -6,8 +6,8 @@ UVA student evaluations browser
 2. use php files to browse data
 
 ```
-populate_offerings.rb -- script, gets all class offerings from lou's list
-populate_evals.rb     -- script, get all class evals from UVA
+populate_offerings.rb -- script; gets all class offerings from lou's list
+populate_evals.rb     -- script; get all class evals from UVA
 
 classes.php -- browser for all classes
 class.php   -- browser for single class
