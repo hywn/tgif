@@ -18,7 +18,7 @@ $stuff = array_map(function($class) {
 
 	[$grp, $num, $responded, $rating] = $class;
 
-	$link = "<a href=\"/class.php?class=$grp$num\">$grp $num</a>";
+	$link = "<a href=\"/viewclass.html?class=$grp+$num\">$grp $num</a>";
 	$display = "<tr><td>$link</td><td>$responded</td><td>$responded</td></tr>";
 
 	return [$grp, $num, $display];

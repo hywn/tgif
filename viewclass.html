@@ -1,0 +1,54 @@
+<h1></h1>
+<table></table>
+
+<script>
+const BANNER = document.querySelector('h1')
+const OFFERINGS = document.querySelector('table')
+
+function die()
+{
+	BANNER.innerText("oop can't find that class!")
+	throw 'oop!'
+}
+
+const clas = new URLSearchParams(window.location.search).get('class') || die()
+
+;(async function(){
+
+BANNER.innerText = `viewing ${clas}`
+
+const data = await fetch(`./class.php?class=${clas}`).then(r => r.json())
+
+const grouped = data.reduce((all, clas) => {
+	const { prf } = clas
+
+	if (!all[prf])
+		all[prf] = []
+
+	all[prf].push(clas)
+
+	return all
+}, {})
+
+OFFERINGS.innerHTML = '<tr><th>prof</th><th>rating</th><th>sem</th><th>number</th></tr>'
+OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
+
+	const td   = txt => `<td>${txt}</td>`
+	const disp = ({ m5, sem, cln }) => [m5, sem, cln].map(td).join('')
+
+	const avg_rating = classes.reduce((sum, { m5 }) => sum + m5, 0) / classes.length
+	const first = classes.shift()
+
+	return `<tr><th rowspan="${1 + classes.length}">${prof}</th>${disp(first)}</tr>`
+		+ classes.map(c => `<tr>${disp(c)}</tr>`).join('')
+		+ `<tr><td></td><th>${avg_rating.toPrecision(3)}</th></tr>`
+
+}).join('')
+
+})();
+
+</script>
+
+<style>
+th { background-color: #eee }
+</style>
