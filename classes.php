@@ -23,7 +23,7 @@ $classes = $a_all_classes();
 
 $stuff = array_map(function($class) {
 
-	[$grp, $num, $responded, $rating] = $class;
+	list($grp, $num, $responded, $rating) = $class;
 
 	$rating = number_format($rating, 2);
 

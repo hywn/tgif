@@ -7,7 +7,7 @@ $class = $_GET['class'];
 
 preg_match('/([A-Z]+)\s*(\d+)/', $class, $matches);
 
-[, $grp, $num] = $matches;
+list(, $grp, $num) = $matches;
 
 if (!$grp or !$num) die('null');
 
