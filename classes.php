@@ -1,7 +1,14 @@
+<style>
+td, th { padding: 0.2em; text-align: right; border: ridge }
+th { text-align: right }
+input { font-size: 2em; padding: 0.2em }
+body { display: flex; flex-direction: column; align-items: center }
+</style>
+
 <h1>all evaluations</h1>
-<input id="input" type="text" />
+<input id="input" type="text" placeholder="class name, e.g. 'CS 2150'" autofocus />
 <table>
-	<tr><th>class</th><th>num. evaluations</th><th>avg. rating</th></tr>
+	<tr><th>class</th><th>avg. rating</th><th>num. evaluations</th></tr>
 	<tbody id="classes"></tbody>
 </table>
 
@@ -18,8 +25,10 @@ $stuff = array_map(function($class) {
 
 	[$grp, $num, $responded, $rating] = $class;
 
+	$rating = number_format($rating, 2);
+
 	$link = "<a href=\"/viewclass.html?class=$grp+$num\">$grp $num</a>";
-	$display = "<tr><td>$link</td><td>$responded</td><td>$responded</td></tr>";
+	$display = "<tr><td>$link</td><td>$rating</td><td>$responded</td></tr>";
 
 	return [$grp, $num, $display];
 }, $classes);
