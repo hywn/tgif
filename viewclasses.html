@@ -59,7 +59,7 @@ const update_selection =
 		avg_is.map(() => 0)
 	).map(x => x / selection.length)
 
-	avg_display = cell('', ' dsc') + cell('avgs:') + avgs.map(avg => cell(avg.toFixed(2))).join('')
+	avg_display = cell('', ' dsc') + cell('avg:') + avgs.map(avg => cell(avg.toFixed(2))).join('')
 
 	reset()
 	update_display()
