@@ -32,18 +32,24 @@ const grouped = data.reduce((all, clas) => {
 	return all
 }, {})
 
+const tag = tag => txt => `<${tag}>${txt}</${tag}>`
+const td  = tag('td')
+const th  = tag('th')
+const tr  = tag('tr')
+const tds = (...data) => data.map(td).join('')
+const ths = (...data) => data.map(th).join('')
+
 // display table
-OFFERINGS.innerHTML = '<tr><th>prof</th><th>rating</th><th>sem</th><th>number</th></tr>'
+OFFERINGS.innerHTML = tr(ths('prof', 'rating', 'sem', 'number'))
 OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 
-	const td   = txt => `<td>${txt}</td>`
-	const disp = ({ m5, sem, cln }) => [m5, sem, cln].map(td).join('')
+	const disp = ({ m5, sem, cln }) => tds(m5, sem, cln)
 
 	const avg_rating = classes.reduce((sum, { m5 }) => sum + m5, 0) / classes.length
 	const first = classes.shift()
 
 	return `<tr><th rowspan="${1 + classes.length}">${prof}</th>${disp(first)}</tr>`
-		+ classes.map(c => `<tr>${disp(c)}</tr>`).join('')
+		+ classes.map(c => tr(disp(c))).join('')
 		+ `<tr class="avg"><td>avg:</td><td>${avg_rating.toPrecision(3)}</td></tr>`
 
 }).join('')
