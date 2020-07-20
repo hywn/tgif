@@ -2,23 +2,25 @@
 <table></table>
 
 <script>
+;(async function(){
 const BANNER = document.querySelector('h1')
 const OFFERINGS = document.querySelector('table')
 
-function die()
-{
-	BANNER.innerText("oop can't find that class!")
-	throw 'oop!'
-}
+const DISPLAY = msg => BANNER.innerText = msg
+const DIE     = msg => { DISPLAY(msg); throw msg }
 
-const clas = new URLSearchParams(window.location.search).get('class') || die()
+// get `class` from URL params
+const clas = new URLSearchParams(window.location.search).get('class')
+	|| DIE("need to specify a class!")
 
-;(async function(){
-
-BANNER.innerText = `viewing ${clas}`
-
+// get data from server
 const data = await fetch(`./class.php?class=${clas}`).then(r => r.json())
 
+// display friendly message
+data ? DISPLAY(`viewing ${clas}`)
+     : DIE("oop can't find that class!")
+
+// group classes by prof
 const grouped = data.reduce((all, clas) => {
 	const { prf } = clas
 
@@ -30,6 +32,7 @@ const grouped = data.reduce((all, clas) => {
 	return all
 }, {})
 
+// display table
 OFFERINGS.innerHTML = '<tr><th>prof</th><th>rating</th><th>sem</th><th>number</th></tr>'
 OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 
@@ -44,9 +47,7 @@ OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 		+ `<tr class="avg"><td>avg:</td><td>${avg_rating.toPrecision(3)}</td></tr>`
 
 }).join('')
-
 })();
-
 </script>
 
 <style>
