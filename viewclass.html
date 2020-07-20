@@ -46,8 +46,18 @@ const avgs = classes => (...cols) =>
 	).map(([k, v]) => [k, v / classes.length]))
 const avg = (...nums) => nums.reduce((sum, num) => sum + num) / nums.length
 
+const DATA_COLS = {
+	class_avg: 'avg class score',
+	prof_avg:  'avg prof score',
+	m1:        'learned?',
+	m2:        'worth?',
+	m3:        'defined?',
+	m4:        'prof availability',
+	m5:        'prof overall',
+}
+
 // display table
-OFFERINGS.innerHTML = tag('thead')(tr(ths('prof', 'avg class score', 'avg prof score', 'learned?', 'worth?', 'defined?', 'prof. availabilty', 'prof. overall', 'sem', 'num')))
+OFFERINGS.innerHTML = tag('thead')(tr(ths('prof', ...Object.values(DATA_COLS), 'sem', 'nbr')))
 OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 
 	for (const clas of classes) {
@@ -55,11 +65,11 @@ OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 		clas.prof_avg  = avg(clas.m4, clas.m5)
 	}
 
-	const cols = ['class_avg', 'prof_avg', 'm1', 'm2', 'm3', 'm4', 'm5']
+	const keys = Object.keys(DATA_COLS)
 
-	const disp = clas => tds(...cols.map(col => clas[col].toFixed(2)), clas.sem, clas.cln)
+	const disp = clas => tds(...keys.map(k => clas[k].toFixed(2)), clas.sem, clas.cln)
 
-	const averages = avgs(classes)(...cols)
+	const averages = avgs(classes)(...keys)
 
 	const first = classes.shift()
 
