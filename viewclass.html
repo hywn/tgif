@@ -32,7 +32,7 @@ const grouped = data.reduce((all, clas) => {
 	return all
 }, {})
 
-const tag = tag => txt => `<${tag}>${txt}</${tag}>`
+const tag = tag => (txt, extra='') => `<${tag} ${extra}>${txt}</${tag}>`
 const td  = tag('td')
 const th  = tag('th')
 const tr  = tag('tr')
@@ -47,18 +47,22 @@ const avgs = classes => (...cols) =>
 const avg = (...nums) => nums.reduce((sum, num) => sum + num) / nums.length
 
 const DATA_COLS = {
-	class_avg: 'avg class score',
-	prof_avg:  'avg prof score',
+	class_avg: 'class',
+	prof_avg:  'prof',
 	m1:        'learned?',
 	m2:        'worth?',
 	m3:        'defined?',
-	m4:        'prof availability',
-	m5:        'prof overall',
+	m4:        'available?',
+	m5:        'overall',
 }
 
 // display table
 OFFERINGS.innerHTML = `<colgroup><col span="1"><col class="highlight" span="2"></colgroup>`
-OFFERINGS.innerHTML += tag('thead')(tr(ths('prof', ...Object.values(DATA_COLS), 'sem', 'nbr')))
+OFFERINGS.innerHTML += tag('thead')(
+	tr(th('prof', 'rowspan="3"') + th('scores', 'colspan="7"') + th('info', 'colspan="3" rowspan="2"')) +
+	tr(th('avg', 'colspan="2"') + th('class', 'colspan="3"') + th('prof', 'colspan="2"')) +
+	tr(ths(...Object.values(DATA_COLS), 'sem', 'nbr'))
+)
 OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 
 	for (const clas of classes) {
@@ -81,8 +85,8 @@ OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 })();</script>
 
 <style>
-td, th { padding: 0.2em; text-align: right; border: ridge }
-th { text-align: right }
+td { text-align: right }
+td, th { padding: 0.2em; border: ridge }
 thead th { position: sticky; top: 0; background-color: #fff }
 input { font-size: 2em; padding: 0.2em }
 body { display: flex; flex-direction: column; align-items: center }
