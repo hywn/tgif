@@ -18,9 +18,9 @@ const TABLE = document.querySelector('#classes')
 const INPUT = document.querySelector('#input')
 const DATA  = await fetch(`./classes.php`).then(r => r.json())
 
-const display = ([grp, num, responded, avg]) => {
+const display = ([grp, num, responded, avg, dsc]) => {
 	const link = `<a href="./viewclass.html?class=${grp}+${num}">${grp} ${num}</a>`
-	return `<tr><td>${link}</td><td>${avg}</td><td>${responded}</td></tr>`
+	return `<tr><td>${link}</td><td>${avg.toFixed(2)}</td><td>${responded}</td></tr>`
 }
 
 const DISPLAYS = DATA.map(clas => [clas[0], clas[1], display(clas)])

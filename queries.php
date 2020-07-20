@@ -21,7 +21,7 @@ $a_avgs = function ($grp, $num) use ($db) {
 
 $a_all_classes = function () use ($db) {
 	$r = $db->query('
-		select grp, num, sum(responded), round(avg(m5), 2)
+		select grp, num, sum(responded), avg(m5), dsc
 			from offerings join evals using (sem, cln)
 			group by grp, num
 			order by sum(responded) desc
