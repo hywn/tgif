@@ -18,12 +18,19 @@ const TABLE = document.querySelector('#classes')
 const INPUT = document.querySelector('#input')
 const DATA  = await fetch(`./classes.php`).then(r => r.json())
 
+const display = ([grp, num, responded, avg]) => {
+	const link = `<a href="./viewclass.html?class=${grp}+${num}">${grp} ${num}</a>`
+	return `<tr><td>${link}</td><td>${avg}</td><td>${responded}</td></tr>`
+}
+
+const DISPLAYS = DATA.map(clas => [clas[0], clas[1], display(clas)])
+
 INPUT.addEventListener('input', e => {
 	const input = INPUT.value
 	const grp   = (input.match(/\w+/i) || [''])[0].toUpperCase()
 	const num   = (input.match(/\d+/)  || [''])[0]
 
-	TABLE.innerHTML = DATA
+	TABLE.innerHTML = DISPLAYS
 		.filter(([g, n, disp]) => g.startsWith(grp) && n.startsWith(num))
 		.map(([, , disp]) => disp)
 		.join('')
