@@ -44,15 +44,14 @@ const display = ([grp, num, responded, class_avg, prof_avg, dsc]) => {
 	return cell(dsc, ' dsc') + [link, class_avg.toFixed(2), prof_avg.toFixed(2), responded].map(x => cell(x)).join('')
 }
 
-const HEADERS  = '<div class="cell dsc"></div>' + ['class', 'class score', 'prof score', '# evals'].map(x => cell(x, ' header')).join('')
+const HEADERS = '<div class="cell dsc"></div>' + ['class', 'class score', 'prof score', '# evals'].map(x => cell(x, ' header')).join('')
 
-let grp    = ''
-let num    = ''
-let offset = 0
-const update_display =
-	() =>
+let avg_display = ''
+let selection   = []
+const update_selection =
+	(grp, num) =>
 {
-	const selection = DATA.filter(([g, n]) => g.startsWith(grp) && n.startsWith(num))
+	selection = DATA.filter(([g, n]) => g.startsWith(grp) && n.startsWith(num))
 
 	const avg_is = [3, 4]
 	const avgs   = selection.reduce(
@@ -60,13 +59,18 @@ const update_display =
 		avg_is.map(() => 0)
 	).map(x => x / selection.length)
 
-	const avg_display = cell('', ' dsc') + cell('avgs:') + avgs.map(avg => cell(avg.toFixed(2))).join('')
+	avg_display = cell('', ' dsc') + cell('avgs:') + avgs.map(avg => cell(avg.toFixed(2))).join('')
 
-	TABLE.innerHTML = HEADERS + avg_display + selection
+	reset()
+	update_display()
+}
+
+let offset = 0
+const update_display =
+	() => TABLE.innerHTML = HEADERS + avg_display + selection
 		.slice(offset, 100)
 		.map(display)
 		.join('')
-}
 
 const reset  = () => offset = 0
 const scroll = amount => offset = Math.max(0, offset + amount)
@@ -80,8 +84,7 @@ INPUT.addEventListener('input', e => {
 	grp = (input.match(/\w+/i) || [''])[0].toUpperCase()
 	num = (input.match(/\d+/)  || [''])[0]
 
-	reset()
-	update_display()
+	update_selection(grp, num)
 })
 
 INPUT.dispatchEvent(new Event('input'))
