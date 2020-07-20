@@ -1,8 +1,8 @@
 <h1></h1>
 <table></table>
 
-<script>
-;(async function(){
+<script>;(async function(){
+
 const BANNER = document.querySelector('h1')
 const OFFERINGS = document.querySelector('table')
 
@@ -77,8 +77,8 @@ OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 		+ `<tr class="avg"><td>avg:</td>${tds(...Object.values(averages).map(r => r.toFixed(2)))}</tr>`
 
 }).join('')
-})();
-</script>
+
+})();</script>
 
 <style>
 td, th { padding: 0.2em; text-align: right; border: ridge }
