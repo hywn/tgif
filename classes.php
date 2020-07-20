@@ -31,6 +31,7 @@ $stuff = array_map(function($class) {
 	$display = "<tr><td>$link</td><td>$rating</td><td>$responded</td></tr>";
 
 	return [$grp, $num, $display];
+
 }, $classes);
 
 echo json_encode($stuff);
