@@ -70,6 +70,12 @@ tag('thead')(
 
 Object.entries(grouped).map(([prof, classes]) => {
 
+	// NOTE: this is larger problem
+	// eval system only had m1, m2, h1, h2 -> fill in with nulls
+	// no definite solution rn; this is workaround that just ignores the nulls
+	classes = classes.filter(({ m5 }) => m5 != null)
+	if (classes.length == 0) return ''
+
 	for (const clas of classes) {
 		clas.class_avg = avg(clas.m1, clas.m2, clas.m3)
 		clas.prof_avg  = avg(clas.m4, clas.m5)
@@ -77,7 +83,7 @@ Object.entries(grouped).map(([prof, classes]) => {
 
 	const keys = Object.keys(DATA_COLS)
 
-	const disp = clas => tds(...keys.map(k => clas[k].toFixed(2)), clas.sem, clas.cln)
+	const disp = clas => tds(...keys.map(k => clas[k] ? clas[k].toFixed(2) : '---'), clas.sem, clas.cln)
 
 	const averages = avgs(classes)(...keys)
 
