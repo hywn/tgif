@@ -10,7 +10,7 @@ body {
 .table {
 	margin-top: 1em;
 	display: grid;
-	grid-template-columns: 1fr min-content min-content min-content 1fr
+	grid-template-columns: 1fr min-content min-content min-content min-content 1fr
 }
 .cell {
 	padding: 0.2em;
@@ -38,12 +38,12 @@ const DATA  = await fetch(`./classes.php`).then(r => r.json())
 
 const cell = (data, extra='') => `<div class="cell${extra}">${data}</div>`
 
-const display = ([grp, num, responded, avg, dsc]) => {
+const display = ([grp, num, responded, class_avg, prof_avg, dsc]) => {
 	const link = `<a href="./viewclass.html?class=${grp}+${num}">${grp} ${num}</a>`
-	return cell(dsc, ' dsc') + [link, avg.toFixed(2), responded].map(x => cell(x)).join('')
+	return cell(dsc, ' dsc') + [link, class_avg.toFixed(2), prof_avg.toFixed(2), responded].map(x => cell(x)).join('')
 }
 
-const HEADERS  = '<div class="cell dsc"></div>' + ['class', 'overall', '# evals'].map(x => cell(x, ' header')).join('')
+const HEADERS  = '<div class="cell dsc"></div>' + ['class', 'class score', 'prof score', '# evals'].map(x => cell(x, ' header')).join('')
 const DISPLAYS = DATA.map(clas => [clas[0], clas[1], display(clas)])
 
 let grp    = ''
