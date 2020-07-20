@@ -49,15 +49,17 @@ const avgs = classes => (...cols) =>
 OFFERINGS.innerHTML = tr(ths('prof', 'learned?', 'worth?', 'defined?', 'prof. availabilty', 'prof. overall', 'sem', 'num'))
 OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 
-	const disp = ({ m1, m2, m3, m4, m5, sem, cln }) => tds(m1, m2, m3, m4, m5, sem, cln)
+	const cols = ['m1', 'm2', 'm3', 'm4', 'm5']
 
-	const averages = avgs(classes)('m1', 'm2', 'm3', 'm4', 'm5')
+	const disp = clas => tds(...cols.map(col => clas[col].toFixed(2)), clas.sem, clas.cln)
+
+	const averages = avgs(classes)(...cols)
 
 	const first = classes.shift()
 
 	return `<tr><th rowspan="${1 + classes.length}">${prof}</th>${disp(first)}</tr>`
 		+ classes.map(c => tr(disp(c))).join('')
-		+ `<tr class="avg"><td>avg:</td>${tds(...Object.values(averages).map(r => r.toPrecision(3)))}</tr>`
+		+ `<tr class="avg"><td>avg:</td>${tds(...Object.values(averages).map(r => r.toFixed(2)))}</tr>`
 
 }).join('')
 })();
