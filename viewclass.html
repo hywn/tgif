@@ -46,7 +46,7 @@ const avgs = classes => (...cols) =>
 	).map(([k, v]) => [k, v / classes.length]))
 
 // display table
-OFFERINGS.innerHTML = tr(ths('prof', 'learned?', 'worth?', 'defined?', 'prof. availabilty', 'prof. overall', 'sem', 'num'))
+OFFERINGS.innerHTML = tag('thead')(tr(ths('prof', 'learned?', 'worth?', 'defined?', 'prof. availabilty', 'prof. overall', 'sem', 'num')))
 OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 
 	const cols = ['m1', 'm2', 'm3', 'm4', 'm5']
@@ -68,6 +68,7 @@ OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 <style>
 td, th { padding: 0.2em; text-align: right; border: ridge }
 th { text-align: right }
+thead th { position: sticky; top: 0; background-color: #fff }
 input { font-size: 2em; padding: 0.2em }
 body { display: flex; flex-direction: column; align-items: center }
 
