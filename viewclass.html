@@ -64,7 +64,7 @@ OFFERINGS.innerHTML = `<colgroup><col span="1"><col class="highlight" span="2"><
 
 tag('thead')(
 	tr(thh(1, 3)('prof') + thh(7)('scores') + thh(3, 2)('info')) +
-	tr(thh(2)('avg') + thh(3)('class') + thh(2)('prof')) +
+	tr(thh(2)('avg') + thh(2)('class') + thh(3)('prof')) +
 	tr(stickies(...Object.values(DATA_COLS), 'sem', 'nbr'))
 ) +
 
@@ -77,8 +77,8 @@ Object.entries(grouped).map(([prof, classes]) => {
 	if (classes.length == 0) return ''
 
 	for (const clas of classes) {
-		clas.class_avg = avg(clas.m1, clas.m2, clas.m3)
-		clas.prof_avg  = avg(clas.m4, clas.m5)
+		clas.class_avg = avg(clas.m1, clas.m2)
+		clas.prof_avg  = avg(clas.m3, clas.m4, clas.m5)
 	}
 
 	const keys = Object.keys(DATA_COLS)
