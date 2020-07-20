@@ -45,17 +45,28 @@ const display = ([grp, num, responded, class_avg, prof_avg, dsc]) => {
 }
 
 const HEADERS  = '<div class="cell dsc"></div>' + ['class', 'class score', 'prof score', '# evals'].map(x => cell(x, ' header')).join('')
-const DISPLAYS = DATA.map(clas => [clas[0], clas[1], display(clas)])
 
 let grp    = ''
 let num    = ''
 let offset = 0
 const update_display =
-	() => TABLE.innerHTML = HEADERS + DISPLAYS
-		.filter(([g, n, disp]) => g.startsWith(grp) && n.startsWith(num))
+	() =>
+{
+	const selection = DATA.filter(([g, n]) => g.startsWith(grp) && n.startsWith(num))
+
+	const avg_is = [3, 4]
+	const avgs   = selection.reduce(
+		(sums, row) => avg_is.map((i, ii) => sums[ii] + row[i]),
+		avg_is.map(() => 0)
+	).map(x => x / selection.length)
+
+	const avg_display = cell('', ' dsc') + cell('avgs:') + avgs.map(avg => cell(avg.toFixed(2))).join('')
+
+	TABLE.innerHTML = HEADERS + avg_display + selection
 		.slice(offset, 100)
-		.map(([, , disp]) => disp)
+		.map(display)
 		.join('')
+}
 
 const reset  = () => offset = 0
 const scroll = amount => offset = Math.max(0, offset + amount)
