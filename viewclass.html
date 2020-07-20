@@ -62,7 +62,7 @@ OFFERINGS.innerHTML += tag('thead')(tr(ths('prof', ...Object.values(DATA_COLS), 
 OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 
 	for (const clas of classes) {
-		clas.class_avg = avg(clas.m1, clas.m2, clas.m2)
+		clas.class_avg = avg(clas.m1, clas.m2, clas.m3)
 		clas.prof_avg  = avg(clas.m4, clas.m5)
 	}
 
