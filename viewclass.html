@@ -44,12 +44,18 @@ const avgs = classes => (...cols) =>
 		(sum, clas) => sum.map(([k, v]) => [k, clas[k] + v]),
 		cols.map(col => [col, 0])
 	).map(([k, v]) => [k, v / classes.length]))
+const avg = (...nums) => nums.reduce((sum, num) => sum + num) / nums.length
 
 // display table
-OFFERINGS.innerHTML = tag('thead')(tr(ths('prof', 'learned?', 'worth?', 'defined?', 'prof. availabilty', 'prof. overall', 'sem', 'num')))
+OFFERINGS.innerHTML = tag('thead')(tr(ths('prof', 'avg class score', 'avg prof score', 'learned?', 'worth?', 'defined?', 'prof. availabilty', 'prof. overall', 'sem', 'num')))
 OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 
-	const cols = ['m1', 'm2', 'm3', 'm4', 'm5']
+	for (const clas of classes) {
+		clas.class_avg = avg(clas.m1, clas.m2, clas.m2)
+		clas.prof_avg  = avg(clas.m4, clas.m5)
+	}
+
+	const cols = ['class_avg', 'prof_avg', 'm1', 'm2', 'm3', 'm4', 'm5']
 
 	const disp = clas => tds(...cols.map(col => clas[col].toFixed(2)), clas.sem, clas.cln)
 
