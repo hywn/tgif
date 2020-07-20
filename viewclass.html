@@ -57,7 +57,8 @@ const DATA_COLS = {
 }
 
 // display table
-OFFERINGS.innerHTML = tag('thead')(tr(ths('prof', ...Object.values(DATA_COLS), 'sem', 'nbr')))
+OFFERINGS.innerHTML = `<colgroup><col span="1"><col class="highlight" span="2"></colgroup>`
+OFFERINGS.innerHTML += tag('thead')(tr(ths('prof', ...Object.values(DATA_COLS), 'sem', 'nbr')))
 OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 
 	for (const clas of classes) {
@@ -71,9 +72,7 @@ OFFERINGS.innerHTML += Object.entries(grouped).map(([prof, classes]) => {
 
 	const averages = avgs(classes)(...keys)
 
-	const first = classes.shift()
-
-	return `<tr><th rowspan="${1 + classes.length}">${prof}</th>${disp(first)}</tr>`
+	return `<tr><th rowspan="${classes.length}">${prof}</th>${disp(classes.shift())}</tr>`
 		+ classes.map(c => tr(disp(c))).join('')
 		+ `<tr class="avg"><td>avg:</td>${tds(...Object.values(averages).map(r => r.toFixed(2)))}</tr>`
 
@@ -89,4 +88,5 @@ input { font-size: 2em; padding: 0.2em }
 body { display: flex; flex-direction: column; align-items: center }
 
 .avg td { border-style: groove }
+.highlight { background-color: #eee }
 </style>
