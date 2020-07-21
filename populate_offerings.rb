@@ -28,7 +28,7 @@ semesters = [
 ]
 
 # open and set up SQLite
-db = SQLite3::Database.open 'data.db'
+db = SQLite3::Database.open './data/data.db'
 db.execute(%q{
 	create table if not exists offerings (
 		sem INTEGER,

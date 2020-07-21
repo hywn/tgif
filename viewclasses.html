@@ -35,7 +35,7 @@ body {
 
 const TABLE = document.querySelector('#classes')
 const INPUT = document.querySelector('#input')
-const DATA  = await fetch(`./classes.php`).then(r => r.json())
+const DATA  = await fetch(`./data/classes.php`).then(r => r.json())
 
 const cell = (data, extra='') => `<div class="cell${extra}">${data}</div>`
 

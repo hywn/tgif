@@ -73,7 +73,7 @@ def get_evals(grp, num)
 end
 
 # evals join offerings using (sem, cln) ??
-db = SQLite3::Database.open 'data.db'
+db = SQLite3::Database.open './data/data.db'
 db.execute(%q{
 	create table if not exists evals (
 		sem INTEGER,

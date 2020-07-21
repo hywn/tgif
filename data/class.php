@@ -11,7 +11,8 @@ list(, $grp, $num) = $matches;
 
 if (!$grp or !$num) die('null');
 
-require 'queries.php';
+$db = new SQLite3('./data.db');
+
 $s = $db->prepare('select * from offerings join evals using (sem, cln) where grp=? and num=?');
 $s      ->bindValue(1, $grp);
 $s      ->bindValue(2, $num);

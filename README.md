@@ -11,9 +11,9 @@ SCRIPTS:
 populate_offerings.rb -- gets all class offerings from lou's list
 populate_evals.rb     -- get all class evals from UVA
 
-PHP SERVER STUFF:
-classes.php -- returns info about all classes in JSON
-class.php   -- returns info about a single class in JSON
+PHP SERVER DATA STUFF:
+data/classes.php -- returns info about all classes in JSON
+data/class.php   -- returns info about a single class in JSON
 
 HTML INTERFACE:
 viewclasses.html -- view all classes

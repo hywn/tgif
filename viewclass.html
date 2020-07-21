@@ -14,7 +14,7 @@ const clas = new URLSearchParams(window.location.search).get('class')
 	|| DIE("need to specify a class!")
 
 // get data from server
-const data = await fetch(`./class.php?class=${clas}`).then(r => r.json())
+const data = await fetch(`./data/class.php?class=${clas}`).then(r => r.json())
 
 // display friendly message
 data ? DISPLAY(`viewing ${clas}`)
