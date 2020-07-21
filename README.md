@@ -3,20 +3,25 @@ UVA student evaluations browser
 
 ## how works? overview
 1. run scripts to put data into databases
-2. use php files to browse data
+2. serve php + html files
+3. browse html files to browse data
 
 ```
-populate_offerings.rb -- script; gets all class offerings from lou's list
-populate_evals.rb     -- script; get all class evals from UVA
+SCRIPTS:
+populate_offerings.rb -- gets all class offerings from lou's list
+populate_evals.rb     -- get all class evals from UVA
 
-classes.php -- browser for all classes
-class.php   -- browser for single class
-queries.php -- helper functions for other php files
+PHP SERVER STUFF:
+classes.php -- returns info about all classes in JSON
+class.php   -- returns info about a single class in JSON
+
+HTML INTERFACE:
+viewclasses.html -- view all classes
+viewclass.html   -- view a single class
 ```
 
 ## future
-- in general just make better (group professors, display prof. avgs., display more data, add css)
-- prob go for a DB-serving php backend -> HTML that uses backend
-	- vs. the current php mess
-- pre-generate some of the data? (since all of it is static and could all basically be static files)
+- add features helpful for registration, e.g. 'offered this semester!' tag
+- sort data by clicking lowest headers
+- pre-generate data ????
 - add courseforum review data?
