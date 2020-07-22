@@ -81,7 +81,7 @@ window.addEventListener('wheel', e => {
 
 INPUT.addEventListener('input', e => {
 	const input = INPUT.value
-	grp = (input.match(/\w+/i) || [''])[0].toUpperCase()
+	grp = (input.match(/\[a-z]+/i) || [''])[0].toUpperCase()
 	num = (input.match(/\d+/)  || [''])[0]
 
 	update_selection(grp, num)
